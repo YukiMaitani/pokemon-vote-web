@@ -15,9 +15,18 @@
         <button type="submit">検索</button>
     </form>
     @if(isset($data))
-        {{'名前:'.$data[0]['name']}}
-        {{'タイプ：'.$data[0]['types'][0]}}
-        <img src="{{$data[0]['imageUrl']}}">
+        <table border="1">
+            <tr>
+                <th>名前</th>
+                <th>タイプ</th>
+                <th>画像</th>
+            </tr>
+            <tr>
+                <td>{{$data[0]['name']}}</td>
+                <td>{{$data[0]['types'][0]}}</td>
+                <td><img src="{{$data[0]['imageUrl']}}"></td>
+            </tr>
+        </table>
     @endif
 </body>
 </html>

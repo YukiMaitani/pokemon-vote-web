@@ -26,20 +26,27 @@ class InputPokemonDataController extends Controller
         $data = null;
         if(isset($json)) {
             $data = [];
-            $name = $json['names'][0]['name'];
             $varietiesCount = count($json['varieties']);
-            for($num=0;$num<$varietiesCount;++$num) {
-                $element = ['name'=>$name];
+            $name = $json['names'][0]['name'];
+            $pokeDexNum = $json['pokedex_numbers'][0]['entry_number'];
+            $element = ['pokeDexNum'=>$pokeDexNum,'name'=>$name];
+
+            $foundationUri = 'https://pokeapi.co/api/v2/pokemon/'.$pokeId;
+            $foundationJson = $this->getJson($foundationUri);
+
+            $defaultElement['imageUrl'] = $foundationJson['sprites']['front_default'];
+            $defaultElement['form'] = null;
+            $defaultElement['types'] = $this->getTypes($foundationJson['types']);
+            array_push($data, $element + $defaultElement);
+            if ($varietiesCount === 1) { return $data; }
+
+            for($num=1;$num<$varietiesCount;++$num) {
                 $varietiesName = $json['varieties'][$num]['pokemon']['name'];
                 if(str_ends_with($varietiesName, 'mega') || str_ends_with($varietiesName, 'gmax')) { continue; }
 
                 $varietiesUri = $json['varieties'][$num]['pokemon']['url'];
                 $isDefault = $json['varieties'][$num]['is_default'];
                 if($isDefault) {
-                    $foundationJsonData = $this->getJson($varietiesUri);
-                    $element['imageUrl'] = $foundationJsonData['sprites']['front_default'];
-                    $element['form'] = null;
-                    $element['types'] = $this->getTypes($foundationJsonData['types']);
                 } else {
                     continue;
                 }

@@ -17,13 +17,17 @@
     @if(isset($data))
         <table border="1">
             <tr>
+                <th>図鑑No</th>
                 <th>名前</th>
                 <th>タイプ</th>
+                <th>フォーム</th>
                 <th>画像</th>
             </tr>
             <tr>
+                <td>{{$data[0]['pokeDexNum']}}</td>
                 <td>{{$data[0]['name']}}</td>
                 <td>{{$data[0]['types'][0]}}</td>
+                <td>{{isset($data[0]['form']) ? $data[0]['form'] : 'なし'}}</td>
                 <td><img src="{{$data[0]['imageUrl']}}"></td>
             </tr>
         </table>

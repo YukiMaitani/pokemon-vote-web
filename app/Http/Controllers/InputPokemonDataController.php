@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use JetBrains\PhpStorm\NoReturn;
 
 class InputPokemonDataController extends Controller
 {
@@ -36,21 +35,30 @@ class InputPokemonDataController extends Controller
 
             $defaultElement['imageUrl'] = $foundationJson['sprites']['front_default'];
             $defaultElement['form'] = null;
-            $defaultElement['types'] = $this->getTypes($foundationJson['types']);
+            $defaultTypes = $this->getTypes($foundationJson['types']);
+            $defaultElement['type1'] = $defaultTypes[0];
+            $defaultElement['type2'] = count($defaultTypes) === 2 ? $defaultTypes[1] : null;
             array_push($data, $element + $defaultElement);
+
+            //別の姿がなければデフォルトのみなので返す
             if ($varietiesCount === 1) { return $data; }
 
+            //デフォルトデータが配列の最初に入っているから２番目から。以下の処理は全て別の姿を扱ったもの
             for($num=1;$num<$varietiesCount;++$num) {
                 $varietiesName = $json['varieties'][$num]['pokemon']['name'];
-                if(str_ends_with($varietiesName, 'mega') || str_ends_with($varietiesName, 'gmax')) { continue; }
 
-                $varietiesUri = $json['varieties'][$num]['pokemon']['url'];
-                $isDefault = $json['varieties'][$num]['is_default'];
-                if($isDefault) {
-                } else {
-                    continue;
-                }
-                array_push($data, $element);
+                //メガ進化とダイマックスは抜き
+                if(str_ends_with($varietiesName, 'mega') || str_ends_with($varietiesName, 'gmax')) { continue; }
+                $anotherUri = $json['varieties'][$num]['pokemon']['url'];
+                $anotherJson = $this->getJson($anotherUri);
+                $anotherTypes = $this->getTypes($anotherJson['types']);
+                $anotherData['type1'] = $anotherTypes[0];
+                $anotherData['type2'] = count($anotherTypes) === 2 ? $anotherTypes[1] : null;
+                $anotherFormUri = $anotherJson['forms'][0]['url'];
+                $anotherFormJson = $this->getJson($anotherFormUri);
+                $anotherData['form'] = $anotherFormJson['form_names'][0]['name'];
+                $anotherData['imageUrl'] = $anotherFormJson['sprites']['front_default'];
+                array_push($data, $element + $anotherData);
             }
         }
         return $data;

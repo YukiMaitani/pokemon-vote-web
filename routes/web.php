@@ -19,6 +19,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/input/pokemon', [InputPokemonDataController::class,'input']) -> name('input.pokemon');
+Route::get('/input/pokemon', [InputPokemonDataController::class,'show']) -> name('input.pokemon');
 
 Route::get('/top',[TopIndexController::class,'index'])->name('top');

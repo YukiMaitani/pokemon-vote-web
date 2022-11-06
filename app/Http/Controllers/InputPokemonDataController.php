@@ -47,8 +47,8 @@ class InputPokemonDataController extends Controller
             for($num=1;$num<$varietiesCount;++$num) {
                 $varietiesName = $json['varieties'][$num]['pokemon']['name'];
 
-                //メガ進化とダイマックスは抜き。ゲンシカイキが含まれるが、速度優先で後から手動で削除
-                if(strpos($varietiesName, 'mega') || str_ends_with($varietiesName, 'gmax')) { continue; }
+                //メガ進化、ダイマックス、ヌシポケモンは抜き。ゲンシカイキが含まれるが、速度優先で後から手動で削除
+                if(strpos($varietiesName, 'mega') || str_ends_with($varietiesName, 'max') || str_ends_with($varietiesName, 'totem')) { continue; }
                 $anotherUri = $json['varieties'][$num]['pokemon']['url'];
                 $anotherJson = $this->getJson($anotherUri);
                 $anotherTypes = $this->getTypes($anotherJson['types']);

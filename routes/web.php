@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InputPokemonDataController;
+use App\Http\Controllers\TopIndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/input/pokemon', [InputPokemonDataController::class,'input']);
+
+Route::get('/top',[TopIndexController::class,'index'])->name('top');

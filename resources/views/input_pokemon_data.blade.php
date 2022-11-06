@@ -9,5 +9,13 @@
 </head>
 <body>
     <h1>Input Pokemon Data</h1>
+    <a href="{{route('top')}}">ポケモントップページへ</a>
+    <form action="{{route('input.pokemon')}}">
+        <input type="text" name="pokeNum" value="@if(isset($pokeNum)) {{$pokeNum}} @endif">
+        <button type="submit">検索</button>
+    </form>
+    @if(isset($data))
+        {{'名前:'.$data}}
+    @endif
 </body>
 </html>

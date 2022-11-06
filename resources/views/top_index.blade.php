@@ -9,5 +9,6 @@
 </head>
 <body>
     <h1>Top Index</h1>
+    <a href="{{route('input.pokemon')}}">ポケモン検索ページへ</a>
 </body>
 </html>

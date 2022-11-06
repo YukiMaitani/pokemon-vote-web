@@ -10,7 +10,9 @@ class InputPokemonDataController extends Controller
 
     function input(Request $request) {
         $pokeNum = $request->input('pokeNum');
-        //$data = null; ここで宣言しなくてもdataを渡せている理由が分からない。viewの第二引数はないと当然渡せない
+        //ここで宣言しなくてもdataを渡せている理由が分からない。viewの第二引数はないと当然渡せない。
+        //トップページからこちらに遷移するとエラー発生。urlのqueryの問題だと思われる。やはり定義は必要。
+        $data = null;
         if(isset($pokeNum)) {
             $data = $this->getData($pokeNum);
         }

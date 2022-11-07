@@ -11,30 +11,28 @@
     <h1>Input Pokemon Data</h1>
     <a href="{{route('top')}}">ポケモントップページへ</a>
     <form action="{{route('input.pokemon')}}">
-        <input type="text" name="pokeId" value="@if(isset($pokeId)) {{$pokeId}} @endif">
+        <input type="text" name="pokeId">
         <button type="submit">検索</button>
     </form>
     @if(isset($data))
-        <table border="1">
-            <tr>
-                <th>図鑑No</th>
-                <th>名前</th>
-                <th>タイプ１</th>
-                <th>タイプ２</th>
-                <th>フォーム</th>
-                <th>画像</th>
-            </tr>
-            @foreach($data as $element)
-            <tr>
-                <td>{{$element['pokeDexNum']}}</td>
-                <td>{{$element['name']}}</td>
-                <td>{{$element['type1']}}</td>
-                <td>{{$element['type2'] ?? 'なし'}}</td>
-                <td>{{$element['form'] ?? 'なし'}}</td>
-                <td><img src="{{$element['imageUrl']}}"></td>
-            </tr>
-            @endforeach
-        </table>
+        <form action="" method="post">
+            <p>ポケモンID</p>
+            <input type="text" value="{{$data[0]['pokeId']}}" name="pokeId">
+            <p>図鑑No</p>
+            <input type="text" value="{{$data[0]['pokeDexNum']}}" name="pokeDexNum">
+            <p>名前</p>
+            <input type="text" value="{{$data[0]['name']}}" name="name">
+            <p>タイプ１</p>
+            <input type="text" value="{{$data[0]['type1']}}" name="type1">
+            <p>タイプ２</p>
+            <input type="text" value="{{$data[0]['type2']}}" name="type2">
+            <p>フォーム</p>
+            <input type="text" value="{{$data[0]['form']}}" name="form">
+            <p>画像</p>
+            <input type="text" value="{{$data[0]['imageUrl']}}" name="imageUrl">
+            <div><img src="{{$data[0]['imageUrl']}}"></div>
+        </form>
+        <button type="submit">送信</button>
     @endif
 </body>
 </html>

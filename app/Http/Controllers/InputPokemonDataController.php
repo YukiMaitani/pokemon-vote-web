@@ -28,7 +28,7 @@ class InputPokemonDataController extends Controller
             $varietiesCount = count($json['varieties']);
             $name = $json['names'][0]['name'];
             $pokeDexNum = $json['pokedex_numbers'][0]['entry_number'];
-            $element = ['pokeDexNum'=>$pokeDexNum,'name'=>$name];
+            $element = ['pokeId'=>$pokeId,'pokeDexNum'=>$pokeDexNum,'name'=>$name];
 
             $foundationUri = 'https://pokeapi.co/api/v2/pokemon/'.$pokeId;
             $foundationJson = $this->getJson($foundationUri);

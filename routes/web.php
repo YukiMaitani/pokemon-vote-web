@@ -22,3 +22,6 @@ Route::get('/', function () {
 Route::get('/input/pokemon', [InputPokemonDataController::class,'show']) -> name('input.pokemon');
 
 Route::get('/top',[TopIndexController::class,'index'])->name('top');
+
+Route::get('/imagetest',[\App\Http\Controllers\ImageTestController::class, 'show'])->name('imagetest.show');
+Route::post('/imagetest', [\App\Http\Controllers\ImageTestController::class, 'create'])->name('imagetest.create');

@@ -36,6 +36,7 @@
             @endforeach
         </table>
     @endif
+    @if(isset($searchValue))
     <script>
         window.onload = function () {
             window.setTimeout(clickSearchButton, 3000);
@@ -44,5 +45,6 @@
             }
         }
     </script>
+    @endif
 </body>
 </html>

@@ -72,12 +72,15 @@ class InputPokemonDataController extends Controller
             //別の姿がなければデフォルトのみなので返す
             if ($varietiesCount === 1) { return $data; }
 
+            //ピカチュウはヤバいので返す
+            if ($name === 'ピカチュウ') { return $data; }
+
             //デフォルトデータが配列の最初に入っているから２番目から。以下の処理は全て別の姿を扱ったもの
             for($num=1;$num<$varietiesCount;++$num) {
                 $varietiesName = $json['varieties'][$num]['pokemon']['name'];
 
-                //メガ進化、ダイマックス、ヌシポケモンは抜き。ゲンシカイキが含まれるが、速度優先で後から手動で削除
-                if(strpos($varietiesName, 'mega') || str_ends_with($varietiesName, 'max') || str_ends_with($varietiesName, 'totem')) { continue; }
+                //メガ進化、ダイマックス、ヌシポケモン、ゲンシカイキ、レッツゴーは抜き。出現数が多い順に条件設定。
+                if(strpos($varietiesName, 'mega') || str_ends_with($varietiesName, 'max') || strpos($varietiesName, 'totem') || str_ends_with($varietiesName, 'primal') || str_ends_with($varietiesName, 'starter'))  { continue; }
                 $anotherData['pokeId'] = $defaultPokeId + $num;
                 $anotherUri = $json['varieties'][$num]['pokemon']['url'];
                 $anotherJson = $this->getJson($anotherUri);

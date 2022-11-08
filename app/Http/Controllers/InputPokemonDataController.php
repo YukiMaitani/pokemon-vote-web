@@ -22,20 +22,6 @@ class InputPokemonDataController extends Controller
         return view('input_pokemon_data', ['data'=>$data]);
     }
 
-    function create(Request $request) {
-        $pokemon = new Pokemon;
-        $pokemon->pokemons_pokeId = $request->input('pokeId');
-        $pokemon->pokemons_pokedex_num = $request->input('pokeDexNum');
-        $pokemon->pokemons_name = $request->input('name');
-        $pokemon->pokemons_type1 = $request->input('type1');
-        $pokemon->pokemons_type2 = $request->input('type2');
-        $pokemon->pokemons_form = $request->input('form');
-        $pokemon->pokemons_image_path = $request->input('imageUrl');
-        $this->saveImage($request->input('imageUrl'), $request->input('name'));
-        $pokemon->save();
-        return to_route('input.pokemon');
-    }
-
     //https://qiita.com/Amy2020sg/items/17987f4f7ee867285064 参考
     function saveImage($imageUrl, $name) {
         $img_downloaded = file_get_contents($imageUrl);

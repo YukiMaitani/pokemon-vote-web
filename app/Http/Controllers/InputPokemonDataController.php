@@ -32,35 +32,37 @@ class InputPokemonDataController extends Controller
         fclose($tmp);
     }
 
-    function savePokemonData($data) {
-        $data = $data[0];
-        $pokemon = new Pokemon;
-        $pokemon->pokemons_pokeId = $data['pokeId'];
-        $pokemon->pokemons_pokedex_num = $data['pokeDexNum'];
-        $pokemon->pokemons_name = $data['name'];
-        $pokemon->pokemons_type1 = $data['type1'];
-        $pokemon->pokemons_type2 = $data['type2'];
-        $pokemon->pokemons_form = $data['form'];
-        $pokemon->pokemons_image_path = $data['imageUrl'];
-        $this->saveImage($data['imageUrl'], $data['name']);
-        $pokemon->save();
+    function savePokemonData($dataArray) {
+        foreach($dataArray as $data) {
+            $pokemon = new Pokemon;
+            $pokemon->pokemons_pokeId = $data['pokeId'];
+            $pokemon->pokemons_pokedex_num = $data['pokeDexNum'];
+            $pokemon->pokemons_name = $data['name'];
+            $pokemon->pokemons_type1 = $data['type1'];
+            $pokemon->pokemons_type2 = $data['type2'];
+            $pokemon->pokemons_form = $data['form'];
+            $pokemon->pokemons_image_path = $data['imageUrl'];
+            $this->saveImage($data['imageUrl'], $data['pokeId']);
+            $pokemon->save();
+        }
     }
 
-    function getData($pokeId)
+    function getData($pokeDexNum)
     {
-        $uri = 'https://pokeapi.co/api/v2/pokemon-species/'.$pokeId;
+        $uri = 'https://pokeapi.co/api/v2/pokemon-species/'.$pokeDexNum;
         $json = $this->getJson($uri);
         $data = null;
         if(isset($json)) {
             $data = [];
             $varietiesCount = count($json['varieties']);
             $name = $json['names'][0]['name'];
-            $pokeDexNum = $json['pokedex_numbers'][0]['entry_number'];
-            $element = ['pokeId'=>$pokeId,'pokeDexNum'=>$pokeDexNum,'name'=>$name];
+            $element = ['pokeDexNum'=>$pokeDexNum,'name'=>$name];
 
-            $foundationUri = 'https://pokeapi.co/api/v2/pokemon/'.$pokeId;
+            $foundationUri = 'https://pokeapi.co/api/v2/pokemon/'.$pokeDexNum;
             $foundationJson = $this->getJson($foundationUri);
 
+            $defaultPokeId = $pokeDexNum * 10;
+            $defaultElement['pokeId'] = $defaultPokeId;
             $defaultElement['imageUrl'] = $foundationJson['sprites']['front_default'];
             $defaultElement['form'] = null;
             $defaultTypes = $this->getTypes($foundationJson['types']);
@@ -77,6 +79,7 @@ class InputPokemonDataController extends Controller
 
                 //メガ進化、ダイマックス、ヌシポケモンは抜き。ゲンシカイキが含まれるが、速度優先で後から手動で削除
                 if(strpos($varietiesName, 'mega') || str_ends_with($varietiesName, 'max') || str_ends_with($varietiesName, 'totem')) { continue; }
+                $anotherData['pokeId'] = $defaultPokeId + $num;
                 $anotherUri = $json['varieties'][$num]['pokemon']['url'];
                 $anotherJson = $this->getJson($anotherUri);
                 $anotherTypes = $this->getTypes($anotherJson['types']);

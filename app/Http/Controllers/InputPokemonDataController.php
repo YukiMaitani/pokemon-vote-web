@@ -19,7 +19,7 @@ class InputPokemonDataController extends Controller
             $data = $this->getData($pokeId);
             $this->savePokemonData($data);
         }
-        return view('input_pokemon_data', ['data'=>$data]);
+        return view('input_pokemon_data', ['data'=> $data, 'searchValue' => $pokeId]);
     }
 
     //https://qiita.com/Amy2020sg/items/17987f4f7ee867285064 参考

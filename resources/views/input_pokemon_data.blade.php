@@ -11,7 +11,7 @@
     <h1>Input Pokemon Data</h1>
     <a href="{{route('top')}}">ポケモントップページへ</a>
     <form action="{{route('input.pokemon')}}">
-        <input type="text" name="pokeId">
+        <input type="text" name="pokeId" value="@if(isset($searchValue)) {{$searchValue + 1}} @endif">
         <button type="submit" id="search_button">検索</button>
     </form>
     @if(isset($data))

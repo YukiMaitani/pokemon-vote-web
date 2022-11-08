@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InputPokemonDataController;
 use App\Http\Controllers\TopIndexController;
-use App\Http\Controllers\ViewOnlyDatabaseController;
+use App\Http\Controllers\ViewOnlyDBController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +24,4 @@ Route::get('/input/pokemon', [InputPokemonDataController::class,'show']) -> name
 
 Route::get('/top',[TopIndexController::class,'index'])->name('top');
 
-Route::get('/database', [ViewOnlyDatabaseController::class, 'pokemons']) -> name('database.pokemons');
+Route::get('/database', [ViewOnlyDBController::class, 'pokemons']) -> name('database.pokemons');

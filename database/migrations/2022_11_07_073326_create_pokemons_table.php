@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('pokemons_type1');
             $table->string('pokemons_type2')->nullable();
             $table->string('pokemons_form')->nullable();
-            $table->string('pokemons_image_path')->nullable();
             $table->timestamps();
         });
     }

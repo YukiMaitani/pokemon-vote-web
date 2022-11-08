@@ -41,8 +41,7 @@ class InputPokemonDataController extends Controller
             $pokemon->pokemons_type1 = $data['type1'];
             $pokemon->pokemons_type2 = $data['type2'];
             $pokemon->pokemons_form = $data['form'];
-            $pokemon->pokemons_image_path = $data['imageUrl'];
-            $this->saveImage($data['imageUrl'], $data['pokeId']);
+            if(isset($data['imageUrl'])) { $this->saveImage($data['imageUrl'], $data['pokeId']); }
             $pokemon->save();
         }
     }

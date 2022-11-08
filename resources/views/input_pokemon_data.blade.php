@@ -12,7 +12,7 @@
     <a href="{{route('top')}}">ポケモントップページへ</a>
     <form action="{{route('input.pokemon')}}">
         <input type="text" name="pokeId">
-        <button type="submit">検索</button>
+        <button type="submit" id="search_button">検索</button>
     </form>
     @if(isset($data))
         <table border="1">
@@ -36,5 +36,13 @@
             @endforeach
         </table>
     @endif
+    <script>
+        window.onload = function () {
+            window.setTimeout(clickSearchButton, 3000);
+            function clickSearchButton() {
+                document.getElementById('search_button').click();
+            }
+        }
+    </script>
 </body>
 </html>

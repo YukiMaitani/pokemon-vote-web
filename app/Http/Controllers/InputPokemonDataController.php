@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pokemon;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class InputPokemonDataController extends Controller
 {
@@ -14,8 +17,47 @@ class InputPokemonDataController extends Controller
         $data = null;
         if(isset($pokeId)) {
             $data = $this->getData($pokeId);
+            $this->savePokemonData($data);
         }
         return view('input_pokemon_data', ['data'=>$data]);
+    }
+
+    function create(Request $request) {
+        $pokemon = new Pokemon;
+        $pokemon->pokemons_pokeId = $request->input('pokeId');
+        $pokemon->pokemons_pokedex_num = $request->input('pokeDexNum');
+        $pokemon->pokemons_name = $request->input('name');
+        $pokemon->pokemons_type1 = $request->input('type1');
+        $pokemon->pokemons_type2 = $request->input('type2');
+        $pokemon->pokemons_form = $request->input('form');
+        $pokemon->pokemons_image_path = $request->input('imageUrl');
+        $this->saveImage($request->input('imageUrl'), $request->input('name'));
+        $pokemon->save();
+        return to_route('input.pokemon');
+    }
+
+    //https://qiita.com/Amy2020sg/items/17987f4f7ee867285064 参考
+    function saveImage($imageUrl, $name) {
+        $img_downloaded = file_get_contents($imageUrl);
+        $tmp = tmpfile();
+        fwrite($tmp, $img_downloaded);
+        $tmp_path = stream_get_meta_data($tmp)['uri'];
+        Storage::putFileAs('public/images/pokemons', new File($tmp_path), $name.'.png');
+        fclose($tmp);
+    }
+
+    function savePokemonData($data) {
+        $data = $data[0];
+        $pokemon = new Pokemon;
+        $pokemon->pokemons_pokeId = $data['pokeId'];
+        $pokemon->pokemons_pokedex_num = $data['pokeDexNum'];
+        $pokemon->pokemons_name = $data['name'];
+        $pokemon->pokemons_type1 = $data['type1'];
+        $pokemon->pokemons_type2 = $data['type2'];
+        $pokemon->pokemons_form = $data['form'];
+        $pokemon->pokemons_image_path = $data['imageUrl'];
+        $this->saveImage($data['imageUrl'], $data['name']);
+        $pokemon->save();
     }
 
     function getData($pokeId)

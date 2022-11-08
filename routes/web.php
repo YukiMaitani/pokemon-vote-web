@@ -19,7 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/input/pokemon', [InputPokemonDataController::class,'show']) -> name('input.pokemon');
+Route::get('/input/pokemon/{pokeId?}', [InputPokemonDataController::class,'show']) -> name('input.pokemon')->where(['pokeId' => '[0-9]+']);
+Route::post('/input/pokemon/create', [InputPokemonDataController::class, 'create']) ->name('input.pokemon.create');
 
 Route::get('/top',[TopIndexController::class,'index'])->name('top');
 

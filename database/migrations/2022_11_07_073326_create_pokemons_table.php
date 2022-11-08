@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('pokemons', function (Blueprint $table) {
             $table->id();
-            $table->integer('pokemons_pokeId');
+            $table->integer('pokemons_pokeId')->unique();
             $table->integer('pokemons_pokedex_num');
             $table->string('pokemons_name');
             $table->string('pokemons_type1');
             $table->string('pokemons_type2')->nullable();
             $table->string('pokemons_form')->nullable();
-            $table->string('pokemons_image_name')->nullable();
+            $table->string('pokemons_image_path')->nullable();
             $table->timestamps();
         });
     }

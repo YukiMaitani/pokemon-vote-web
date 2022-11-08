@@ -15,7 +15,8 @@
         <button type="submit">検索</button>
     </form>
     @if(isset($data))
-        <form action="" method="post">
+        <form action="{{route('input.pokemon.create')}}" method="post">
+            @csrf
             <p>ポケモンID</p>
             <input type="text" value="{{$data[0]['pokeId']}}" name="pokeId">
             <p>図鑑No</p>
@@ -31,8 +32,8 @@
             <p>画像</p>
             <input type="text" value="{{$data[0]['imageUrl']}}" name="imageUrl">
             <div><img src="{{$data[0]['imageUrl']}}"></div>
+            <button type="submit">送信</button>
         </form>
-        <button type="submit">送信</button>
     @endif
 </body>
 </html>

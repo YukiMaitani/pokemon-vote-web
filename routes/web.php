@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InputPokemonDataController;
 use App\Http\Controllers\TopIndexController;
 use App\Http\Controllers\ViewOnlyDBController;
+use App\Http\Controllers\PokemonDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,5 @@ Route::get('/input/pokemon', [InputPokemonDataController::class,'show']) -> name
 Route::get('/top',[TopIndexController::class,'index'])->name('top');
 
 Route::get('/database', [ViewOnlyDBController::class, 'pokemons']) -> name('database.pokemons');
+
+Route::get('/pokemon/detail/{pokeId}',[PokemonDetailController::class, 'show']) -> name('pokemon.detail.show')-> where('pokeId', '[0-9]+');

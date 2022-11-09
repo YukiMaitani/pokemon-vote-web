@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pokemon extends Model
 {
     use HasFactory;
-    //protected $fillable = ['pokeId', 'pokeDexNum', 'name', 'type1', 'type2', 'form', 'imageUrl'];
     protected $table = 'pokemons';
+//    protected $primaryKey = 'pokeId';
+//    public $incrementing = false;
 }

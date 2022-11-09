@@ -28,5 +28,17 @@
             <td align="center"><img src="{{ asset('storage/images/pokemons/'.$pokemon->pokemons_id.'.png') }}"></td>
         </tr>
     </table>
+    <form action="#" method="post">
+        @csrf
+        @foreach($pokemonTypes as $pokemonType)
+            <div class="form-check">
+                <input id="{{$pokemonType->name}}" value="{{$pokemonType->value}}" name="pokemon_type" type="radio">
+                <label class="form-check-label" for="{{$pokemonType->name}}">{{$pokemonType->label()}}</label>
+            </div>
+        @endforeach
+        <div class="text-right">
+            <button type="submit" class="btn btn-danger btn-primary">投票</button>
+        </div>
+    </form>
 </body>
 </html>

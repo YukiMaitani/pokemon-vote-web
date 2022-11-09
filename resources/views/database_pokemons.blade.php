@@ -5,10 +5,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Top Index</title>
+    <title>Pokemon　DB</title>
 </head>
 <body>
-<h1>Top Index</h1>
+<h1>Pokemon　DB</h1>
 <a href="{{route('input.pokemon')}}">ポケモン検索ページへ</a>
 <table border="1">
     <tr>
@@ -25,16 +25,16 @@
     </tr>
     @foreach($pokemons as $pokemon)
         <tr>
-            <td>{{$pokemon->id}}</td>
-            <td>{{$pokemon->pokemons_pokeId}}</td>
-            <td>{{$pokemon->pokemons_pokedex_num}}</td>
-            <td>{{$pokemon->pokemons_name}}</td>
-            <td>{{$pokemon->pokemons_type1}}</td>
-            <td>{{$pokemon->pokemons_type2 ?? 'なし'}}</td>
-            <td>{{$pokemon->pokemons_form ?? 'なし'}}</td>
-            <td><img src="{{ asset('storage/images/pokemons/'.$pokemon->pokemons_pokeId.'.png') }}"></td>
-            <td>{{$pokemon->created_at}}</td>
-            <td>{{$pokemon->updated_at}}</td>
+            <td align="center">{{$pokemon->id}}</td>
+            <td align="center">{{$pokemon->pokemons_pokeId}}</td>
+            <td align="center">{{$pokemon->pokemons_pokedex_num}}</td>
+            <td align="center">{{$pokemon->pokemons_name}}</td>
+            <td align="center">{{$pokemon->pokemons_type1}}</td>
+            <td align="center">{{$pokemon->pokemons_type2 ?? 'なし'}}</td>
+            <td align="center">{{$pokemon->pokemons_form ?? 'なし'}}</td>
+            <td align="center"><img src="{{ asset('storage/images/pokemons/'.$pokemon->pokemons_pokeId.'.png') }}"></td>
+            <td align="center">{{$pokemon->created_at}}</td>
+            <td align="center">{{$pokemon->updated_at}}</td>
         </tr>
     @endforeach
 </table>

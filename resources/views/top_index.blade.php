@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Top Index</title>
+    <link rel="stylesheet" href="{{asset('storage/css/top_index.css')}}">
 </head>
 <body>
     <h1>Top Index</h1>
@@ -18,15 +19,17 @@
                 <th>タイプ２</th>
                 <th>フォーム</th>
                 <th>画像</th>
+                <th>投票ボタン</th>
             </tr>
             @foreach($pokemons as $pokemon)
             <tr>
-                <td>{{$pokemon->pokemons_pokedex_num}}</td>
-                <td>{{$pokemon->pokemons_name}}</td>
-                <td>{{$pokemon->pokemons_type1}}</td>
-                <td>{{$pokemon->pokemons_type2 ?? 'なし'}}</td>
-                <td>{{$pokemon->pokemons_form ?? 'なし'}}</td>
-                <td><img src="{{ asset('storage/images/pokemons/'.$pokemon->pokemons_pokeId.'.png') }}"></td>
+                <td align="center">{{$pokemon->pokemons_pokedex_num}}</td>
+                <td align="center">{{$pokemon->pokemons_name}}</td>
+                <td align="center">{{$pokemon->pokemons_type1}}</td>
+                <td align="center">{{$pokemon->pokemons_type2 ?? 'なし'}}</td>
+                <td align="center">{{$pokemon->pokemons_form ?? 'なし'}}</td>
+                <td align="center"><img src="{{ asset('storage/images/pokemons/'.$pokemon->pokemons_pokeId.'.png') }}"></td>
+                <td align="center"><a href="#" class="btn">投票</a></td>
             </tr>
             @endforeach
         </table>

@@ -9,6 +9,7 @@ class Pokemon extends Model
 {
     use HasFactory;
     protected $table = 'pokemons';
-//    protected $primaryKey = 'pokeId';
-//    public $incrementing = false;
+    protected $primaryKey = 'pokemons_id';
+    public $incrementing = false;
+
 }

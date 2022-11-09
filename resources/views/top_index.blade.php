@@ -10,7 +10,9 @@
 </head>
 <body>
     <h1>Top Index</h1>
-    <a href="{{route('input.pokemon')}}">ポケモン検索ページへ</a>
+    <a href="{{route('input.pokemon')}}">ポケモンDB作成ページへ</a>
+    <div></div>
+    <a href="{{route('database.pokemons')}}">データベースへ</a>
         <table border="1">
             <tr>
                 <th>図鑑No</th>
@@ -28,8 +30,8 @@
                 <td align="center">{{$pokemon->pokemons_type1}}</td>
                 <td align="center">{{$pokemon->pokemons_type2 ?? 'なし'}}</td>
                 <td align="center">{{$pokemon->pokemons_form ?? 'なし'}}</td>
-                <td align="center"><img src="{{ asset('storage/images/pokemons/'.$pokemon->pokemons_pokeId.'.png') }}"></td>
-                <td align="center"><a href="{{route('pokemon.detail.show', ['pokeId' => $pokemon->pokemons_pokeId])}}" class="btn">投票</a></td>
+                <td align="center"><img src="{{ asset('storage/images/pokemons/'.$pokemon->pokemons_id.'.png') }}"></td>
+                <td align="center"><a href="{{route('pokemon.detail.show', ['pokeId' => $pokemon->pokemons_id])}}" class="btn">投票</a></td>
             </tr>
             @endforeach
         </table>

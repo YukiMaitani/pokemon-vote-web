@@ -35,7 +35,7 @@ class InputPokemonDataController extends Controller
     function savePokemonData($dataArray) {
         foreach($dataArray as $data) {
             $pokemon = new Pokemon;
-            $pokemon->pokemons_pokeId = $data['pokeId'];
+            $pokemon->pokemons_id = $data['pokeId'];
             $pokemon->pokemons_pokedex_num = $data['pokeDexNum'];
             $pokemon->pokemons_name = $data['name'];
             $pokemon->pokemons_type1 = $data['type1'];

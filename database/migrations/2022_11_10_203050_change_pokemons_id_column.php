@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('terastal_types_votes', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('pokemon_id');
-            $table->foreign('pokemon_id')->references('pokemons_id')->on('pokemons');
-            $table->integer('pokemon_type_id');
-            $table->timestamps();
+        Schema::table('pokemons', function (Blueprint $table) {
+            //下記を追記
+            $table->unsignedBigInteger('pokemons_id')->change();
         });
     }
 
@@ -29,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('terastal_types_votes');
+        Schema::table('pokemons', function (Blueprint $table) {
+            //下記を追記
+            $table->integer('pokemons_id')->change();
+        });
     }
 };

@@ -17,7 +17,7 @@
         <input type="text" name="keyword" value="">
         <button type="submit" id="search_button">検索</button>
     </form>
-    @if(isset($pokemons))
+    @if($pokemons->count() !== 0)
     <table border="1">
         <tr>
             <th>図鑑No</th>

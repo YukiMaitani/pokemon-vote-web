@@ -13,10 +13,11 @@
     <a href="{{route('input.pokemon')}}">ポケモンDB作成ページへ</a>
     <div></div>
     <a href="{{route('database.pokemons')}}">データベースへ</a>
-    <form action="{{route('input.pokemon')}}">
-        <input type="text" name="pokeId" value="@if(isset($searchValue)) {{$searchValue + 1}} @endif">
+    <form action="{{route('top')}}">
+        <input type="text" name="keyword" value="">
         <button type="submit" id="search_button">検索</button>
     </form>
+    @if(isset($pokemons))
     <table border="1">
         <tr>
             <th>図鑑No</th>
@@ -40,5 +41,8 @@
         @endforeach
     </table>
     {{ $pokemons->links() }}
+    @else
+        <p style="color: red">ポケモンが見つかりませんでした。他の条件で検索して下さい</p>
+    @endif
 </body>
 </html>

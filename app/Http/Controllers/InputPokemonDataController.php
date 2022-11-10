@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PokemonType;
 use App\Models\Pokemon;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
@@ -109,51 +110,9 @@ class InputPokemonDataController extends Controller
         $typeTranslatedArray = [];
         for ($num=0;$num<$typeNum;++$num) {
             $typeEn = $typeArray[$num]['type']['name'];
-            $typeJp = $this->typeTranslate($typeEn);
+            $typeJp = PokemonType::from($typeEn)->label();
             array_push($typeTranslatedArray, $typeJp);
         }
         return $typeTranslatedArray;
-    }
-
-    function typeTranslate($typeEn)
-    {
-        switch ($typeEn) {
-            case 'normal':
-                return 'ノーマル';
-            case 'fire':
-                return 'ほのお';
-            case 'water':
-                return 'みず';
-            case 'grass':
-                return 'くさ';
-            case 'electric':
-                return 'でんき';
-            case 'ice':
-                return 'こおり';
-            case 'fighting':
-                return 'かくとう';
-            case 'poison':
-                return 'どく';
-            case 'ground':
-                return 'じめん';
-            case 'flying':
-                return 'ひこう';
-            case 'psychic':
-                return 'エスパー';
-            case 'bug':
-                return 'むし';
-            case 'rock':
-                return 'いわ';
-            case 'ghost':
-                return 'ゴースト';
-            case 'dragon':
-                return 'ドラゴン';
-            case 'dark':
-                return 'あく';
-            case 'steel':
-                return 'はがね';
-            case 'fairy':
-                return 'フェアリー';
-        }
     }
 }

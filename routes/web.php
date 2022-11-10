@@ -28,3 +28,4 @@ Route::get('/top',[TopIndexController::class,'index'])->name('top');
 Route::get('/database', [ViewOnlyDBController::class, 'pokemons']) -> name('database.pokemons');
 
 Route::get('/pokemon/detail/{pokeId}',[PokemonDetailController::class, 'show']) -> name('pokemon.detail.show')-> where('pokeId', '[0-9]+');
+Route::post('/pokemon/vote/{pokeId}',[PokemonDetailController::class, 'vote']) -> name('pokemon.vote') -> where('pokeId', '[0-9]+');

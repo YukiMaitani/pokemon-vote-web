@@ -28,7 +28,7 @@
             <td align="center"><img src="{{ asset('storage/images/pokemons/'.$pokemon->pokemons_id.'.png') }}"></td>
         </tr>
     </table>
-    <form action="#" method="post">
+    <form action="{{route('pokemon.vote', ['pokeId' => $pokemon->pokemons_id])}}" method="post">
         @csrf
         @foreach($pokemonTypes as $pokemonType)
             <div class="form-check">

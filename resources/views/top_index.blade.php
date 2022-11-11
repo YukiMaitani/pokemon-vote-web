@@ -14,7 +14,7 @@
     <div></div>
     <a href="{{route('database.pokemons')}}">データベースへ</a>
     <form action="{{route('top')}}">
-        <input type="text" name="keyword" value="">
+        <input type="search" name="keyword" value="@if(isset($keyword)) {{$keyword}} @endif" placeholder="ポケモンの名前を入力" id="search_box">
         <button type="submit" id="search_button">検索</button>
     </form>
     @if($pokemons->count() !== 0)
@@ -42,7 +42,11 @@
     </table>
     {{ $pokemons->links() }}
     @else
-        <p style="color: red">ポケモンが見つかりませんでした。他の条件で検索して下さい</p>
+        <p style="color: red">ポケモンが見つかりませんでした。他の条件で検索して下さい。</p>
     @endif
 </body>
+<script>
+    var input = document.getElementById('search_box');
+    var value = input.getAttribute('value');
+</script>
 </html>

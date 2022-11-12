@@ -52,6 +52,55 @@ enum PokemonType: int
         };
     }
 
+    public function rgba(): array
+    {
+        return match ($this)
+        {
+            PokemonType::normal => ['r'=>168,'g'=>168,'b'=>120,'a'=>1],
+            PokemonType::fire => ['r'=>240,'g'=>128,'b'=>48,'a'=>1],
+            PokemonType::water => ['r'=>104,'g'=>144,'b'=>240,'a'=>1],
+            PokemonType::grass => ['r'=>120,'g'=>200,'b'=>60,'a'=>1],
+            PokemonType::electric => ['r'=>248,'g'=>208,'b'=>48,'a'=>1],
+            PokemonType::ice => ['r'=>152,'g'=>216,'b'=>216,'a'=>1],
+            PokemonType::fighting => ['r'=>192,'g'=>48,'b'=>40,'a'=>1],
+            PokemonType::poison => ['r'=>160,'g'=>64,'b'=>160,'a'=>1],
+            PokemonType::ground => ['r'=>224,'g'=>192,'b'=>104,'a'=>1],
+            PokemonType::flying => ['r'=>168,'g'=>144,'b'=>240,'a'=>1],
+            PokemonType::psychic => ['r'=>248,'g'=>88,'b'=>136,'a'=>1],
+            PokemonType::bug => ['r'=>168,'g'=>184,'b'=>32,'a'=>1],
+            PokemonType::rock => ['r'=>184,'g'=>160,'b'=>56,'a'=>1],
+            PokemonType::ghost => ['r'=>112,'g'=>88,'b'=>152,'a'=>1],
+            PokemonType::dragon => ['r'=>112,'g'=>56,'b'=>248,'a'=>1],
+            PokemonType::dark => ['r'=>112,'g'=>88,'b'=>72,'a'=>1],
+            PokemonType::steel => ['r'=>184,'g'=>184,'b'=>208,'a'=>1],
+            PokemonType::fairy => ['r'=>238,'g'=>153,'b'=>172,'a'=>1],
+        };
+    }
+
+    public function colorCode(): string
+    {
+        return match($this)
+        {
+            PokemonType::normal => 'A8A878',
+            PokemonType::fire => 'F08030',
+            PokemonType::water => '6890F0',
+            PokemonType::grass => '78C850',
+            PokemonType::electric => 'F8D030',
+            PokemonType::ice => '98D8D8',
+            PokemonType::fighting => 'C03028',
+            PokemonType::poison => 'A040A0',
+            PokemonType::ground => 'E0C068',
+            PokemonType::flying => 'A890F0',
+            PokemonType::psychic => 'F85888',
+            PokemonType::bug => 'A8B820',
+            PokemonType::rock => 'B8A038',
+            PokemonType::ghost => '705898',
+            PokemonType::dragon => '7038F8',
+            PokemonType::dark => '705848',
+            PokemonType::steel => 'B8B8D0',
+            PokemonType::fairy => 'EE99AC',
+        };
+    }
     public static function labelArray(): array
     {
         return [
@@ -73,6 +122,30 @@ enum PokemonType: int
             'あく',
             'はがね',
             'フェアリー',
+        ];
+    }
+
+    public static function casesArray(): array
+    {
+        return [
+            PokemonType::normal,
+            PokemonType::fire,
+            PokemonType::water,
+            PokemonType::grass,
+            PokemonType::electric,
+            PokemonType::ice,
+            PokemonType::fighting,
+            PokemonType::poison,
+            PokemonType::ground,
+            PokemonType::flying,
+            PokemonType::psychic,
+            PokemonType::bug,
+            PokemonType::rock,
+            PokemonType::ghost,
+            PokemonType::dragon,
+            PokemonType::dark,
+            PokemonType::steel,
+            PokemonType::fairy,
         ];
     }
 }

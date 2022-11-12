@@ -26,12 +26,20 @@ class PokemonDetailController extends Controller
 
     function getVoteCounts($pokeId) {
         $votes = TerastalVote::query()->where('pokemon_id',$pokeId)->get();
-        $voteCountsValue = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        $voteCountsValue = [];
+        for($n=1;$n<19;$n++){
+            $rgba = PokemonType::tryFrom($n)->rgba();
+            $rbaString = 'rgba('.$rgba['r'].','.$rgba['g'].','.$rgba['b'].','.$rgba['a'];
+            array_push($voteCountsValue,[
+                'count'=>0,
+                'rgba'=>$rbaString
+            ]);
+        }
         $voteCountsKey = PokemonType::labelArray();
         $voteCounts = array_combine($voteCountsKey,$voteCountsValue);
         foreach ($votes as $vote) {
             $type = PokemonType::tryFrom($vote->pokemon_type_id)->label();
-            $voteCounts[$type] += 1;
+            $voteCounts[$type]['count'] += 1;
         }
         arsort($voteCounts);
         return $voteCounts;

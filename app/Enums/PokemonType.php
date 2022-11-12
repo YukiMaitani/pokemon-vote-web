@@ -51,4 +51,28 @@ enum PokemonType: int
             PokemonType::fairy => 'フェアリー',
         };
     }
+
+    public static function labelArray(): array
+    {
+        return [
+            'ノーマル',
+            'ほのお',
+            'みず',
+            'くさ',
+            'でんき',
+            'こおり',
+            'かくとう',
+            'どく',
+            'じめん',
+            'ひこう',
+            'エスパー',
+            'むし',
+            'いわ',
+            'ゴースト',
+            'ドラゴン',
+            'あく',
+            'はがね',
+            'フェアリー',
+        ];
+    }
 }

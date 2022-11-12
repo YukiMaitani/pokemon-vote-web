@@ -40,5 +40,28 @@
             <button type="submit" class="btn btn-danger btn-primary">投票</button>
         </div>
     </form>
+    <canvas id="myChart"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const labels = [];
+        const countData = [];
+        const voteCounts = @json($voteCounts);
+        for(const label in voteCounts) {
+            labels.push(label);
+            countData.push(voteCounts[label]);
+        }
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: '最強のテラスタル',
+                data: countData,
+            }]
+        }
+        const ctx = document.getElementById("myChart");
+        const myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: data
+        });
+    </script>
 </body>
 </html>

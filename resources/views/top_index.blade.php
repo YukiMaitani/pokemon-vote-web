@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Top Index</title>
-    <link rel="stylesheet" href="{{asset('storage/css/top_index.css')}}">
+    <link rel="stylesheet" href="{{asset('css/top_index.css')}}">
 </head>
 <body>
     <h1>Top Index</h1>
@@ -35,7 +35,7 @@
             <td align="center">{{$pokemon->pokemons_type1}}</td>
             <td align="center">{{$pokemon->pokemons_type2 ?? 'なし'}}</td>
             <td align="center">{{$pokemon->pokemons_form ?? 'なし'}}</td>
-            <td align="center"><img src="{{ asset('storage/images/pokemons/'.$pokemon->pokemons_id.'.png') }}"></td>
+            <td align="center"><img src="{{ asset('images/pokemons/'.$pokemon->pokemons_id.'.png') }}"></td>
             <td align="center"><a href="{{route('pokemon.detail.show', ['pokeId' => $pokemon->pokemons_id])}}" class="btn">投票</a></td>
         </tr>
         @endforeach

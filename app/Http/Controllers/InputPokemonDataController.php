@@ -132,4 +132,12 @@ class InputPokemonDataController extends Controller
         }
         return json_encode($statTranslatedArray, JSON_UNESCAPED_UNICODE);
     }
+
+    //一回でDBの全てのデータを取る。もう少し整形必要。allではなくwhereでデータを抽出して実験。
+    function saveJsonFile()
+    {
+        $pokemons = Pokemon::all();
+        $json = json_encode($pokemons, JSON_UNESCAPED_UNICODE);
+        file_put_contents('pokemons.json',$json);
+    }
 }

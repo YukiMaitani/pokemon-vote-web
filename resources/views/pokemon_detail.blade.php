@@ -56,8 +56,10 @@
             return sum + element['count'];
         },0);
         for(const label in voteCounts) {
+            let voteRate = voteCounts[label]['count']/voteTotal;
+            if(voteRate === 0) continue;
             labels.push(label);
-            counts.push(voteCounts[label]['count']/voteTotal);
+            counts.push(voteRate);
             backgroundColors.push(voteCounts[label]['rgba']);
         }
         const data = {

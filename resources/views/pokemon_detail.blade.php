@@ -50,9 +50,14 @@
         const counts = [];
         const backgroundColors = [];
         const voteCounts = @json($voteCounts);
+        const voteCountsValue = Object.values(voteCounts);
+        let voteTotal = voteCountsValue.reduce(function (sum, element){
+            console.log(element);
+            return sum + element['count'];
+        },0);
         for(const label in voteCounts) {
             labels.push(label);
-            counts.push(voteCounts[label]['count']);
+            counts.push(voteCounts[label]['count']/voteTotal);
             backgroundColors.push(voteCounts[label]['rgba']);
         }
         const data = {
@@ -79,7 +84,7 @@
                         color: 'white',
                         formatter: (value, context) => {
                             const label = context.chart.data.labels[context.dataIndex];
-                            return label + '\n' + value + '票';
+                            return label + '\n' + Math.round(value*100) + '%';
                         },
                         display: 'auto'
                     }

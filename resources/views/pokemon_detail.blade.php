@@ -42,9 +42,13 @@
             <button type="submit" class="btn btn-danger btn-primary">投票</button>
         </div>
     </form>
-    <div id="chart-type-container" width="200" height="200">
-        <canvas id="chart-type"></canvas>
-    </div>
+    @if(isset($voteCounts))
+        <div id="chart-type-container" width="200" height="200">
+            <canvas id="chart-type"></canvas>
+        </div>
+    @else
+        <p style="color: indianred">まだ投票がありません。</p>
+    @endif
     <script>
         const labels = [];
         const counts = [];

@@ -25,7 +25,7 @@
             <td align="center">{{$pokemon->pokemons_type1}}</td>
             <td align="center">{{$pokemon->pokemons_type2 ?? 'なし'}}</td>
             <td align="center">{{$pokemon->pokemons_form ?? 'なし'}}</td>
-            <td align="center"><img src="{{ asset('images/pokemons/'.$pokemon->pokemons_id.'.png') }}"></td>
+            <td align="center"><img src="{{ asset('storage/images/pokemons/'.$pokemon->pokemons_id.'.png') }}"></td>
         </tr>
     </table>
     <form action="{{route('pokemon.vote', ['pokeId' => $pokemon->pokemons_id])}}" method="post">
@@ -40,7 +40,9 @@
             <button type="submit" class="btn btn-danger btn-primary">投票</button>
         </div>
     </form>
-    <canvas id="chart-type"></canvas>
+    <div id="chart-type-container" width="200" height="200">
+        <canvas id="chart-type"></canvas>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const labels = [];
@@ -60,10 +62,14 @@
                 backgroundColor:backgroundColors
             }]
         }
-        const ctx = document.getElementById("chart-type");
-        const myChart = new Chart(ctx, {
+        const typeChartCanvas = document.getElementById("chart-type");
+        const typeChart = new Chart(typeChartCanvas, {
             type: 'doughnut',
-            data: data
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
         });
     </script>
 </body>

@@ -35,7 +35,7 @@
             <td align="center">{{$pokemon->pokemons_type1}}</td>
             <td align="center">{{$pokemon->pokemons_type2 ?? 'なし'}}</td>
             <td align="center">{{$pokemon->pokemons_form ?? 'なし'}}</td>
-            <td align="center"><img src="{{ asset('images/pokemons/'.$pokemon->pokemons_id.'.png') }}"></td>
+            <td align="center"><img src="{{ asset('storage/images/pokemons/'.$pokemon->pokemons_id.'.png') }}"></td>
             <td align="center"><a href="{{route('pokemon.detail.show', ['pokeId' => $pokemon->pokemons_id])}}" class="btn">投票</a></td>
         </tr>
         @endforeach

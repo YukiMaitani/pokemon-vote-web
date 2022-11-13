@@ -20,6 +20,12 @@
         <th>タイプ１</th>
         <th>タイプ２</th>
         <th>フォーム</th>
+        <th>HP</th>
+        <th>こうげき</th>
+        <th>ぼうぎょ</th>
+        <th>とくこう</th>
+        <th>とくぼう</th>
+        <th>すばやさ</th>
         <th>画像</th>
         <th>作成日</th>
         <th>更新日</th>
@@ -32,6 +38,12 @@
             <td align="center">{{$pokemon->pokemons_type1}}</td>
             <td align="center">{{$pokemon->pokemons_type2 ?? 'なし'}}</td>
             <td align="center">{{$pokemon->pokemons_form ?? 'なし'}}</td>
+            <td align="center">{{json_decode($pokemon->pokemons_base_stats,true)[0]['HP']}}</td>
+            <td align="center">{{json_decode($pokemon->pokemons_base_stats,true)[1]['こうげき']}}</td>
+            <td align="center">{{json_decode($pokemon->pokemons_base_stats,true)[2]['ぼうぎょ']}}</td>
+            <td align="center">{{json_decode($pokemon->pokemons_base_stats,true)[3]['とくこう']}}</td>
+            <td align="center">{{json_decode($pokemon->pokemons_base_stats,true)[4]['とくぼう']}}</td>
+            <td align="center">{{json_decode($pokemon->pokemons_base_stats,true)[5]['すばやさ']}}</td>
             <td align="center"><img src="{{ asset('storage/images/pokemons/'.$pokemon->pokemons_id.'.png') }}"></td>
             <td align="center">{{$pokemon->created_at}}</td>
             <td align="center">{{$pokemon->updated_at}}</td>

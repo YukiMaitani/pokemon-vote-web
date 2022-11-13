@@ -4,6 +4,7 @@ namespace App\Enums;
 
 //https://blog.capilano-fw.com/?p=9829 参考
 //https://www.pnkts.net/2022/01/14/laravel-validation-rule-enum
+//https://cpoint-lab.co.jp/article/202206/22902/
 enum PokemonType: int
 {
     // 基本情報
@@ -99,6 +100,31 @@ enum PokemonType: int
             PokemonType::dark => '705848',
             PokemonType::steel => 'B8B8D0',
             PokemonType::fairy => 'EE99AC',
+        };
+    }
+
+    public static function find(string $key): PokemonType
+    {
+        return match ($key)
+        {
+            'normal' => PokemonType::normal,
+            'fire' => PokemonType::fire,
+            'water' => PokemonType::water,
+            'grass' => PokemonType::grass,
+            'electric' => PokemonType::electric,
+            'ice' => PokemonType::ice,
+            'fighting' => PokemonType::fighting,
+            'poison' => PokemonType::poison,
+            'ground' => PokemonType::ground,
+            'flying' => PokemonType::flying,
+            'psychic' => PokemonType::psychic,
+            'bug' => PokemonType::bug,
+            'rock' => PokemonType::rock,
+            'ghost' => PokemonType::ghost,
+            'dragon' => PokemonType::dragon,
+            'dark' => PokemonType::dark,
+            'steel' => PokemonType::steel,
+            'fairy' => PokemonType::fairy
         };
     }
     public static function labelArray(): array

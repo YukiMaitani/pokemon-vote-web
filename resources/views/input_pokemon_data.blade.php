@@ -40,12 +40,7 @@
     @endif
     @if(isset($searchValue))
     <script>
-        window.onload = function () {
-            window.setTimeout(clickSearchButton, 3000);
-            function clickSearchButton() {
-                document.getElementById('search_button').click();
-            }
-        }
+
     </script>
     @endif
 </body>

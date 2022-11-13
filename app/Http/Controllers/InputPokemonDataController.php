@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PokemonStat;
 use App\Enums\PokemonType;
 use App\Models\Pokemon;
 use Illuminate\Http\File;
@@ -42,6 +43,7 @@ class InputPokemonDataController extends Controller
             $pokemon->pokemons_type1 = $data['type1'];
             $pokemon->pokemons_type2 = $data['type2'];
             $pokemon->pokemons_form = $data['form'];
+            $pokemon->pokemons_base_stats = $data['base_stats'];
             if(isset($data['imageUrl'])) { $this->saveImage($data['imageUrl'], $data['pokeId']); }
             $pokemon->save();
         }
@@ -68,6 +70,8 @@ class InputPokemonDataController extends Controller
             $defaultTypes = $this->getTypes($foundationJson['types']);
             $defaultElement['type1'] = $defaultTypes[0];
             $defaultElement['type2'] = count($defaultTypes) === 2 ? $defaultTypes[1] : null;
+            $defaultElement['base_stats'] = $this->getStats($foundationJson['stats']);
+
             array_push($data, $element + $defaultElement);
 
             //別の姿がなければデフォルトのみなので返す
@@ -92,6 +96,7 @@ class InputPokemonDataController extends Controller
                 $anotherFormJson = $this->getJson($anotherFormUri);
                 $anotherData['form'] = $anotherFormJson['form_names'][0]['name'];
                 $anotherData['imageUrl'] = $anotherFormJson['sprites']['front_default'];
+                $anotherData['base_stats'] = $this->getStats($foundationJson['stats']);
                 array_push($data, $element + $anotherData);
             }
         }
@@ -110,9 +115,21 @@ class InputPokemonDataController extends Controller
         $typeTranslatedArray = [];
         for ($num=0;$num<$typeNum;++$num) {
             $typeEn = $typeArray[$num]['type']['name'];
-            $typeJp = PokemonType::from($typeEn)->label();
+            $typeJp = PokemonType::find($typeEn)->label();
             array_push($typeTranslatedArray, $typeJp);
         }
         return $typeTranslatedArray;
+    }
+
+    function getStats($statArray)
+    {
+        $statTranslatedArray = [];
+        foreach ($statArray as $stat) {
+            $baseStat = $stat['base_stat'];
+            $statEn = $stat['stat']['name'];
+            $statJp = PokemonStat::from($statEn)->label();
+            array_push($statTranslatedArray,[$statJp => $baseStat]);
+        }
+        return json_encode($statTranslatedArray, JSON_UNESCAPED_UNICODE);
     }
 }

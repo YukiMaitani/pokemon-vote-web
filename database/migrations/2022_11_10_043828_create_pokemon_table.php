@@ -14,12 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('pokemons', function (Blueprint $table) {
-            $table->integer('pokemons_id')->primary();
+            $table->unsignedBigInteger('pokemons_id')->primary();
             $table->integer('pokemons_pokedex_num');
             $table->string('pokemons_name');
             $table->string('pokemons_type1');
             $table->string('pokemons_type2')->nullable();
             $table->string('pokemons_form')->nullable();
+            $table->json('pokemons_base_stats');
             $table->timestamps();
         });
     }

@@ -43,6 +43,7 @@
     <div id="chart-type-container" width="200" height="200">
         <canvas id="chart-type"></canvas>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const labels = [];
@@ -57,7 +58,6 @@
         const data = {
             labels: labels,
             datasets: [{
-                label: '最強のテラスタル',
                 data: counts,
                 backgroundColor:backgroundColors
             }]
@@ -69,6 +69,12 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '最強のテラスタルはどれ？',
+                    }
+                }
             }
         });
     </script>

@@ -136,8 +136,13 @@ class InputPokemonDataController extends Controller
     function parseForm($form)
     {
         return match ($form){
-           'Hisuian Form' => 'ヒスイのすがた',
-           'Origin Forme' => 'オリジンフォルム',
+            'Hisuian Form' => 'ヒスイのすがた',
+            'Origin Forme' => 'オリジンフォルム',
+            'White-Striped Form' => 'しろすじ',
+            'Male' => 'オスのすがた',
+            'Female' => 'メスのすがた',
+            'Incarnate Forme' => 'けしんフォルム',
+            'Therian Forme' => 'れいじゅうフォルム',
             default => $form
         };
     }

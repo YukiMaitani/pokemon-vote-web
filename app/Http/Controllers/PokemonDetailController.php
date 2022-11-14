@@ -60,7 +60,9 @@ class PokemonDetailController extends Controller
         return match ($form) {
             'ガラルのすがた' => $url.'g',
             'アローラのすがた' => $url.'a',
+            'ヒスイのすがた' => 'https://yakkun.com/legends_arceus/zukan/n'.$pokedex_num.'h',
             'けんのおう' => $url.'f',
+            'オリジンフォルム' => $url.'o',
             default => $url
         };
     }

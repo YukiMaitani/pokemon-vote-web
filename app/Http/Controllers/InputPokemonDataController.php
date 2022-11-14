@@ -94,7 +94,7 @@ class InputPokemonDataController extends Controller
                 $anotherData['type2'] = count($anotherTypes) === 2 ? $anotherTypes[1] : null;
                 $anotherFormUri = $anotherJson['forms'][0]['url'];
                 $anotherFormJson = $this->getJson($anotherFormUri);
-                $anotherData['form'] = $anotherFormJson['form_names'][0]['name'];
+                $anotherData['form'] = $this->parseForm($anotherFormJson['form_names'][0]['name']);
                 $anotherData['imageUrl'] = $anotherFormJson['sprites']['front_default'];
                 $anotherData['base_stats'] = $this->getStats($foundationJson['stats']);
                 array_push($data, $element + $anotherData);
@@ -131,6 +131,15 @@ class InputPokemonDataController extends Controller
             array_push($statTranslatedArray,[$statJp => $baseStat]);
         }
         return json_encode($statTranslatedArray, JSON_UNESCAPED_UNICODE);
+    }
+
+    function parseForm($form)
+    {
+        return match ($form){
+           'Hisuian Form' => 'ヒスイのすがた',
+           'Origin Forme' => 'オリジンフォルム',
+            default => $form
+        };
     }
 
     //一回でDBの全てのデータを取る。もう少し整形必要。allではなくwhereでデータを抽出して実験。

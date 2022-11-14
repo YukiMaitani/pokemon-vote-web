@@ -30,6 +30,7 @@
             <td align="center"><img src="{{ asset('storage/images/pokemons/'.$pokemon->pokemons_id.'.png') }}"></td>
         </tr>
     </table>
+    <p><a href="{{$yakkunUrl}}" target="_blank" rel="noopener noreferrer">{{$pokemon->pokemons_name}}に関する詳しい情報（ポケモン徹底攻略様より）</a></p>
     <div id="chart-stat-container" width="150" height="200">
         <canvas id="chart-stat"></canvas>
     </div>

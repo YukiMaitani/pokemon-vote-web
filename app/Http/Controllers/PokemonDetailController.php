@@ -13,7 +13,8 @@ class PokemonDetailController extends Controller
         $pokemon = Pokemon::query()->find($pokeId);
         $voteCounts = $this->getVoteCounts($pokeId);
         $pokemonTypes = PokemonType::cases();
-        return view('pokemon_detail', compact('pokemon','pokemonTypes','voteCounts'));
+        $yakkunUrl = $this->yakkun($pokemon);
+        return view('pokemon_detail', compact('pokemon','pokemonTypes','voteCounts','yakkunUrl'));
     }
 
     function vote(Request $request, $pokeId) {
@@ -44,5 +45,17 @@ class PokemonDetailController extends Controller
         }
         arsort($voteCounts);
         return $voteCounts;
+    }
+
+    public function yakkun($pokemon) {
+        $form = $pokemon->pokemons_form;
+        $pokedex_num = $pokemon->pokemons_pokedex_num;
+        $url = 'https://yakkun.com/swsh/zukan/n'.$pokedex_num;
+        if(!isset($form)) { return $url; }
+        return match ($form) {
+            'ガラルのすがた' => $url.'g',
+            'アローラのすがた' => $url.'a',
+            'けんのおう' => $url.'f',
+        };
     }
 }

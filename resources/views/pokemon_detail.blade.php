@@ -30,7 +30,7 @@
             <td align="center"><img src="{{ asset('storage/images/pokemons/'.$pokemon->pokemons_id.'.png') }}"></td>
         </tr>
     </table>
-    <div id="chart-stat-container" width="200" height="200">
+    <div id="chart-stat-container" width="150" height="200">
         <canvas id="chart-stat"></canvas>
     </div>
     <form action="{{route('pokemon.vote', ['pokeId' => $pokemon->pokemons_id])}}" method="post">
@@ -116,13 +116,42 @@
                 axis: 'y',
                 label: '種族値',
                 data: statValues,
-                fill: false
+                fill: false,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(255, 99, 132, 0.7)',
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 99, 132)'
+                ],
+                borderWidth: 3
             }]
         };
         const statChartCanvas = document.getElementById("chart-stat");
         const statChart = new Chart(statChartCanvas,{
             type: 'bar',
             data: statData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                datasets: [{
+                    bar:{
+                        backgroundColors: 'rgba(255, 159, 64, 1)'
+                    }
+                }]
+            }
         })
     </script>
 </body>

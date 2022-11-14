@@ -50,12 +50,18 @@ class PokemonDetailController extends Controller
     public function yakkun($pokemon) {
         $form = $pokemon->pokemons_form;
         $pokedex_num = $pokemon->pokemons_pokedex_num;
+
+        //アルセウス以降に新たにでたポケモンに対応。swshにアクセスするとエラーになる。
+        if($pokedex_num>=899){ return 'https://yakkun.com/legends_arceus/zukan/n'.$pokedex_num; }
         $url = 'https://yakkun.com/swsh/zukan/n'.$pokedex_num;
         if(!isset($form)) { return $url; }
+
+        //対応できてないものは通常フォームを返す。
         return match ($form) {
             'ガラルのすがた' => $url.'g',
             'アローラのすがた' => $url.'a',
             'けんのおう' => $url.'f',
+            default => $url
         };
     }
 }

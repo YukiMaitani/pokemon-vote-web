@@ -30,6 +30,9 @@
             <td align="center"><img src="{{ asset('storage/images/pokemons/'.$pokemon->pokemons_id.'.png') }}"></td>
         </tr>
     </table>
+    <div id="chart-stat-container" width="200" height="200">
+        <canvas id="chart-stat"></canvas>
+    </div>
     <form action="{{route('pokemon.vote', ['pokeId' => $pokemon->pokemons_id])}}" method="post">
         @csrf
         @foreach($pokemonTypes as $pokemonType)
@@ -49,25 +52,23 @@
     @else
         <p style="color: indianred">まだ投票がありません。</p>
     @endif
+    @if(isset($voteCounts))
     <script>
-        const labels = [];
+        const voteLabels = [];
         const counts = [];
         const backgroundColors = [];
         const voteCounts = @json($voteCounts);
         const voteCountsValue = Object.values(voteCounts);
-        let voteTotal = voteCountsValue.reduce(function (sum, element){
-            console.log(element);
-            return sum + element['count'];
-        },0);
+        let voteTotal = voteCountsValue.reduce(function (sum, element){ return sum + element['count']; },0);
         for(const label in voteCounts) {
             let voteRate = voteCounts[label]['count']/voteTotal;
             if(voteRate === 0) continue;
-            labels.push(label);
+            voteLabels.push(label);
             counts.push(voteRate);
             backgroundColors.push(voteCounts[label]['rgba']);
         }
         const data = {
-            labels: labels,
+            labels: voteLabels,
             datasets: [{
                 data: counts,
                 backgroundColor:backgroundColors
@@ -97,6 +98,32 @@
                 }
             }
         });
+    </script>
+    @endif
+    <script>
+        let statsData = @json($pokemon->pokemons_base_stats);
+        let stats = JSON.parse(statsData);
+        let statLabels = ['HP','こうげき','ぼうぎょ','とくこう','とくぼう','すばやさ'];
+        const statValues = [];
+        for(var i=0; i<6; i++) {
+            let key = statLabels[i]
+            let stat = stats[i][key];
+            statValues.push(stat);
+        }
+        const statData = {
+            labels: statLabels,
+            datasets: [{
+                axis: 'y',
+                label: '種族値',
+                data: statValues,
+                fill: false
+            }]
+        };
+        const statChartCanvas = document.getElementById("chart-stat");
+        const statChart = new Chart(statChartCanvas,{
+            type: 'bar',
+            data: statData,
+        })
     </script>
 </body>
 </html>

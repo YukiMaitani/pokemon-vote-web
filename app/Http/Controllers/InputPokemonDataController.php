@@ -109,7 +109,7 @@ class InputPokemonDataController extends Controller
         return $response->json();
     }
 
-    function getTypes($typeArray)
+    function getTypes($typeArray): array
     {
         $typeNum = count($typeArray);
         $typeTranslatedArray = [];

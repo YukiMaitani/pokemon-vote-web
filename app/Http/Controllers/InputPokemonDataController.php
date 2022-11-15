@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Enums\PokemonStat;
 use App\Enums\PokemonType;
 use App\Models\Pokemon;
-use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class InputPokemonDataController extends Controller
 {
@@ -46,7 +46,7 @@ class InputPokemonDataController extends Controller
             $pokemon->pokemons_base_stats = $data['base_stats'];
             $pokemon->pokemons_is_default = $data['isDefault'];
             $pokemon->pokemons_is_sv = $data['isSV'];
-            if(isset($data['imageUrl'])) { $this->saveImage($data['imageUrl'], $data['pokeId']); }
+            if(isset($data['imageUrl']) && !File::exists(storage_path('app/public/images/pokemons/'.$data['pokeId'].'.png'))) { $this->saveImage($data['imageUrl'], $data['pokeId']); }
             $pokemon->save();
         }
     }

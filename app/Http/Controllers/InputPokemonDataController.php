@@ -44,6 +44,8 @@ class InputPokemonDataController extends Controller
             $pokemon->pokemons_type2 = $data['type2'];
             $pokemon->pokemons_form = $data['form'];
             $pokemon->pokemons_base_stats = $data['base_stats'];
+            $pokemon->pokemons_is_default = $data['isDefault'];
+            $pokemon->pokemons_is_sv = $data['isSV'];
             if(isset($data['imageUrl'])) { $this->saveImage($data['imageUrl'], $data['pokeId']); }
             $pokemon->save();
         }
@@ -59,7 +61,7 @@ class InputPokemonDataController extends Controller
             $varieties =$json['varieties'];
             $varietiesCount = count($varieties);
             $name = $json['names'][0]['name'];
-            $element = ['pokeDexNum'=>$pokeDexNum,'name'=>$name];
+            $element = ['pokeDexNum'=>$pokeDexNum,'name'=>$name, 'isSV'=>false];
 
             $foundationUri = 'https://pokeapi.co/api/v2/pokemon/'.$pokeDexNum;
             $foundationJson = $this->getJson($foundationUri);

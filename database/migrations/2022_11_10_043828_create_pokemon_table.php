@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('pokemons_type2')->nullable();
             $table->string('pokemons_form')->nullable();
             $table->json('pokemons_base_stats');
+            $table->boolean('pokemons_is_default');
+            $table->boolean('pokemons_is_sv');
             $table->timestamps();
         });
     }

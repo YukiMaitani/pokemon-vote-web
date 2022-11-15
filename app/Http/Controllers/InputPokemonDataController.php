@@ -56,7 +56,8 @@ class InputPokemonDataController extends Controller
         $data = null;
         if(isset($json)) {
             $data = [];
-            $varietiesCount = count($json['varieties']);
+            $varieties =$json['varieties'];
+            $varietiesCount = count($varieties);
             $name = $json['names'][0]['name'];
             $element = ['pokeDexNum'=>$pokeDexNum,'name'=>$name];
 
@@ -66,7 +67,8 @@ class InputPokemonDataController extends Controller
             $defaultPokeId = $pokeDexNum * 10;
             $defaultElement['pokeId'] = $defaultPokeId;
             $defaultElement['imageUrl'] = $foundationJson['sprites']['front_default'];
-            $defaultElement['form'] = null;
+            $defaultElement['isDefault'] = true;
+            $defaultElement['form'] = $this->getForm($foundationJson['forms'][0]['url']);
             $defaultTypes = $this->getTypes($foundationJson['types']);
             $defaultElement['type1'] = $defaultTypes[0];
             $defaultElement['type2'] = count($defaultTypes) === 2 ? $defaultTypes[1] : null;
@@ -87,15 +89,14 @@ class InputPokemonDataController extends Controller
                 //メガ進化、ダイマックス、ヌシポケモン、ゲンシカイキ、レッツゴーは抜き。出現数が多い順に条件設定。
                 if(strpos($varietiesName, 'mega') || str_ends_with($varietiesName, 'max') || strpos($varietiesName, 'totem') || str_ends_with($varietiesName, 'primal') || str_ends_with($varietiesName, 'starter'))  { continue; }
                 $anotherData['pokeId'] = $defaultPokeId + $num;
-                $anotherUri = $json['varieties'][$num]['pokemon']['url'];
+                $anotherData['isDefault'] = false;
+                $anotherUri = $varieties[$num]['pokemon']['url'];
                 $anotherJson = $this->getJson($anotherUri);
                 $anotherTypes = $this->getTypes($anotherJson['types']);
                 $anotherData['type1'] = $anotherTypes[0];
                 $anotherData['type2'] = count($anotherTypes) === 2 ? $anotherTypes[1] : null;
-                $anotherFormUri = $anotherJson['forms'][0]['url'];
-                $anotherFormJson = $this->getJson($anotherFormUri);
-                $anotherData['form'] = $this->parseForm($anotherFormJson['form_names'][0]['name']);
-                $anotherData['imageUrl'] = $anotherFormJson['sprites']['front_default'];
+                $anotherData['imageUrl'] = $anotherJson['sprites']['front_default'];
+                $anotherData['form'] = $this->getForm($anotherJson['forms'][0]['url']);
                 $anotherData['base_stats'] = $this->getStats($foundationJson['stats']);
                 array_push($data, $element + $anotherData);
             }
@@ -131,6 +132,15 @@ class InputPokemonDataController extends Controller
             array_push($statTranslatedArray,[$statJp => $baseStat]);
         }
         return json_encode($statTranslatedArray, JSON_UNESCAPED_UNICODE);
+    }
+
+    function getForm($formUri)
+    {
+        $formJson = $this->getJson($formUri);
+        $formArray = $formJson['form_names'];
+        if (count($formArray) === 0) { return null; }
+        $form = $formArray[0]['name'];
+        return $this->parseForm($form);
     }
 
     function parseForm($form)

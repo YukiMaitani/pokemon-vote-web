@@ -6,52 +6,59 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Pokemon Detail</title>
+    <link rel="stylesheet" href="{{asset('css/pokemon_detail.css')}}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 </head>
 <body>
-    <a href="{{route('top')}}">ポケモントップページへ</a>
-    <table border="1">
-        <tr>
-            <th>図鑑No</th>
-            <th>名前</th>
-            <th>タイプ１</th>
-            <th>タイプ２</th>
-            <th>フォーム</th>
-            <th>画像</th>
-        </tr>
-        <tr>
-            <td align="center">{{$pokemon->pokemons_pokedex_num}}</td>
-            <td align="center">{{$pokemon->pokemons_name}}</td>
-            <td align="center">{{$pokemon->pokemons_type1}}</td>
-            <td align="center">{{$pokemon->pokemons_type2 ?? 'なし'}}</td>
-            <td align="center">{{$pokemon->pokemons_form ?? 'なし'}}</td>
-            <td align="center"><img src="{{ asset('storage/images/pokemons/'.$pokemon->pokemons_id.'.png') }}"></td>
-        </tr>
-    </table>
-    <p><a href="{{$yakkunUrl}}" target="_blank" rel="noopener noreferrer">{{$pokemon->pokemons_name}}に関する詳しい情報（ポケモン徹底攻略様より）</a></p>
-    <div id="chart-stat-container" width="200" height="250">
-        <canvas id="chart-stat"></canvas>
-    </div>
-    <form action="{{route('pokemon.vote', ['pokeId' => $pokemon->pokemons_id])}}" method="post">
-        @csrf
-        @foreach($pokemonTypes as $pokemonType)
-            <div class="form-check">
-                <input id="{{$pokemonType->name}}" value="{{$pokemonType->value}}" name="pokemon_type" type="radio">
-                <label class="form-check-label" for="{{$pokemonType->name}}">{{$pokemonType->label()}}</label>
+    <div class="wrap">
+        <div class="vote box">
+            <form action="{{route('pokemon.vote', ['pokeId' => $pokemon->pokemons_id])}}" method="post">
+                @csrf
+                @foreach($pokemonTypes as $pokemonType)
+                    <div class="form-check">
+                        <input id="{{$pokemonType->name}}" value="{{$pokemonType->value}}" name="pokemon_type" type="radio">
+                        <label class="form-check-label" for="{{$pokemonType->name}}">{{$pokemonType->label()}}</label>
+                    </div>
+                @endforeach
+                <div class="text-right">
+                    <button type="submit" class="btn btn-danger btn-primary">投票</button>
+                </div>
+            </form>
+            @if(isset($voteCounts))
+                <div id="chart-type-container" width="200" height="200">
+                    <canvas id="chart-type"></canvas>
+                </div>
+            @else
+                <p style="color: indianred">まだ投票がありません。</p>
+            @endif
+        </div>
+        <div class="pokemon-information box">
+            <a href="{{route('top')}}">ポケモントップページへ</a>
+            <table border="1">
+                <tr>
+                    <th>図鑑No</th>
+                    <th>名前</th>
+                    <th>タイプ１</th>
+                    <th>タイプ２</th>
+                    <th>フォーム</th>
+                    <th>画像</th>
+                </tr>
+                <tr>
+                    <td align="center">{{$pokemon->pokemons_pokedex_num}}</td>
+                    <td align="center">{{$pokemon->pokemons_name}}</td>
+                    <td align="center">{{$pokemon->pokemons_type1}}</td>
+                    <td align="center">{{$pokemon->pokemons_type2 ?? 'なし'}}</td>
+                    <td align="center">{{$pokemon->pokemons_form ?? 'なし'}}</td>
+                    <td align="center"><img src="{{ asset('storage/images/pokemons/'.$pokemon->pokemons_id.'.png') }}"></td>
+                </tr>
+            </table>
+            <p><a href="{{$yakkunUrl}}" target="_blank" rel="noopener noreferrer">{{$pokemon->pokemons_name}}に関する詳しい情報（ポケモン徹底攻略様より）</a></p>
+            <div id="chart-stat-container" width="200" height="250">
+                <canvas id="chart-stat"></canvas>
             </div>
-        @endforeach
-        <div class="text-right">
-            <button type="submit" class="btn btn-danger btn-primary">投票</button>
         </div>
-    </form>
-    @if(isset($voteCounts))
-        <div id="chart-type-container" width="200" height="200">
-            <canvas id="chart-type"></canvas>
-        </div>
-    @else
-        <p style="color: indianred">まだ投票がありません。</p>
-    @endif
+    </div>
     <script>
     @if(isset($voteCounts))
         const voteLabels = [];

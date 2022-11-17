@@ -19,21 +19,23 @@
     @if($pokemons->count() !== 0)
     <section class="wrapper">
         @foreach($pokemons as $pokemon)
-        <div class="card-container">
+        <div class="card">
             <div class="card-header">
-                <figure class="image"><img src="{{ asset('storage/images/pokemons/'.$pokemon->pokemons_id.'.png') }}"></figure>
+                <figure class="card-thumbnail"><img src="{{ asset('storage/images/pokemons/'.$pokemon->pokemons_id.'.png') }}" class="card-image"></figure>
             </div>
             <div class="card-body">
                 <div class="first">
-                    <h3>{{$pokemon->pokemons_pokedex_num}}</h3>
-                    <div class="type-container">
-                        <p>{{$pokemon->pokemons_type1}}</p>
-                        <p>{{$pokemon->pokemons_type2 ?? ''}}</p>
-                    </div>
+                    <p>{{$pokemon->pokemons_pokedex_num}}</p>
                 </div>
-                <h1>{{$pokemon->pokemons_name}}</h1>
+                <h3 class="card-title">{{$pokemon->pokemons_name}}</h3>
                 <h4>{{$pokemon->pokemons_form ?? ''}}</h4>
-                <a href="{{route('pokemon.detail.show', ['pokeId' => $pokemon->pokemons_id])}}" class="btn">投票</a>
+                <div class="type-container">
+                    <p>{{$pokemon->pokemons_type1}}</p>
+                    <p>{{$pokemon->pokemons_type2 ?? ''}}</p>
+                </div>
+                <div class="card-footer">
+                    <p class="card-btn"> <a href="{{route('pokemon.detail.show', ['pokeId' => $pokemon->pokemons_id])}}" class="btn compact">投票</a></p>
+                </div>
             </div>
         </div>
         @endforeach

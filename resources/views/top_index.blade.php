@@ -12,8 +12,8 @@
     <a href="{{route('input.pokemon')}}">ポケモンDB作成ページへ</a>
     <div></div>
     <a href="{{route('database.pokemons')}}">データベースへ</a>
-    <form action="{{route('top')}}">
-        <input type="search" name="keyword" value="@if(isset($keyword)) {{$keyword}} @endif" placeholder="ポケモンの名前を入力" id="search_box">
+    <form action="{{route('top')}}" class="form">
+        <input type="search" name="keyword" value="@if(isset($keyword)) {{$keyword}} @endif" placeholder="ポケモンの名前を入力" id="search_box" class="search-box">
         <button type="submit" id="search_button">検索</button>
     </form>
     @if($pokemons->count() !== 0)

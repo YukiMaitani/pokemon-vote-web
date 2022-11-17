@@ -3,6 +3,14 @@
     padding: 0;
 }
 
+.form {
+   text-align: center;
+}
+
+.search-box {
+    width: 30%;
+}
+
 .card-footer {
     padding: 1rem;
 }
@@ -14,7 +22,9 @@ img {
 
 .wrapper {
     margin: 3rem auto;
-    width: 320px;
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .card {
@@ -22,6 +32,7 @@ img {
     box-shadow: 0 0 8px rgba(0, 0, 0, .16);
     color: #212121;
     text-decoration: none;
+    width:20%;
 }
 
 .card-header {
@@ -61,12 +72,12 @@ img {
 .btn.compact {
     padding: .5rem 1rem;
     border-radius: .25rem;
-    background-color: #26a69a;
+    background-color: orangered;
     color: #fff;
     font-weight: bold;
 }
 
 .btn.compact:hover,
 .btn.compact:focus {
-    background-color: #80cbc4;
+    background-color: indianred;
 }

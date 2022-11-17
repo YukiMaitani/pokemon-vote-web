@@ -10,7 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 </head>
 <body>
-    <h1>Pokemon Detail</h1>
     <a href="{{route('top')}}">ポケモントップページへ</a>
     <table border="1">
         <tr>
@@ -31,7 +30,7 @@
         </tr>
     </table>
     <p><a href="{{$yakkunUrl}}" target="_blank" rel="noopener noreferrer">{{$pokemon->pokemons_name}}に関する詳しい情報（ポケモン徹底攻略様より）</a></p>
-    <div id="chart-stat-container" width="150" height="200">
+    <div id="chart-stat-container" width="200" height="250">
         <canvas id="chart-stat"></canvas>
     </div>
     <form action="{{route('pokemon.vote', ['pokeId' => $pokemon->pokemons_id])}}" method="post">
@@ -53,8 +52,8 @@
     @else
         <p style="color: indianred">まだ投票がありません。</p>
     @endif
-    @if(isset($voteCounts))
     <script>
+    @if(isset($voteCounts))
         const voteLabels = [];
         const counts = [];
         const backgroundColors = [];
@@ -81,7 +80,7 @@
             data: data,
             plugins: [ChartDataLabels],
             options: {
-                responsive: true,
+                responsive: false,
                 maintainAspectRatio: false,
                 plugins: {
                     title: {
@@ -99,9 +98,7 @@
                 }
             }
         });
-    </script>
     @endif
-    <script>
         let statsData = @json($pokemon->pokemons_base_stats);
         let stats = JSON.parse(statsData);
         let statLabels = ['HP','こうげき','ぼうぎょ','とくこう','とくぼう','すばやさ'];
@@ -143,15 +140,32 @@
         const statChart = new Chart(statChartCanvas,{
             type: 'bar',
             data: statData,
+            plugins: [ChartDataLabels],
             options: {
-                responsive: true,
+                responsive: false,
                 maintainAspectRatio: false,
                 indexAxis: 'y',
                 datasets: [{
                     bar:{
                         backgroundColors: 'rgba(255, 159, 64, 1)'
                     }
-                }]
+                }],
+                scales: {
+                    x: {
+                        max:250,
+                        display: false
+                    }
+                },
+                plugins: {
+                    datalabels: {
+                        formatter: function (value, context) {
+                            return value;
+                        },
+                        anchor: 'end',
+                        align: 'end',
+                        offset: 10
+                    }
+                }
             }
         })
     </script>

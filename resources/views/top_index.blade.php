@@ -15,6 +15,10 @@
     <form action="{{route('top')}}" class="form">
         <input type="search" name="keyword" value="@if(isset($keyword)) {{$keyword}} @endif" placeholder="ポケモンの名前を入力" id="search_box" class="search-box">
         <button type="submit" id="search_button">検索</button>
+        <div class="check-box">
+            <input type="checkbox" id="isSV" name="isSV" checked>
+            <labe for="isSV">SV登場</labe>
+        </div>
     </form>
     @if($pokemons->count() !== 0)
     <section class="wrapper">

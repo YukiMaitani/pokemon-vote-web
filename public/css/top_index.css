@@ -11,6 +11,10 @@
     width: 30%;
 }
 
+.check-box {
+    text-align: center;
+}
+
 .card-footer {
     padding: 1rem;
 }
